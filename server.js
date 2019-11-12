@@ -33,8 +33,13 @@ function openSearch(req, res){
   res.render('pages/index');
 }
 
+//USER FORM EVENT HANDLER/////////////////////////////////////////
+
+// userForm.addEventListener('submit', );
+
 function searchForBooks(req, res){
-  console.log(req.body);
+  console.log('req: '+req);
+  console.log('req.body: '+req.body);
   const booksSearched = req.body.search[0];
   const typeOfSearch = req.body.search[1];
   let url =  `https://www.googleapis.com/books/v1/volumes?q=`;
@@ -56,6 +61,18 @@ app.post('/contact', (request, response) => {
   console.log(request.body);
   response.render('pages/index.ejs');
 });
+
+//////////////////////////////////////////////////////////////////////
+//Book Constructor
+function Book(data){
+  const bookImg = 'http://placeholder.it/300x300';
+  this.title = data.volumeInfo.title || 'No book available';
+  this.author = data.volumeInfo.authors || 'No Author Listed';
+  this.publisher = data.publisher || 'No book available';
+  this.publishedDate = data.publishedDate || 'No book available';
+  this.description = data.description || 'No book available';
+  this.etag = data.etag;
+}
 
 function errorHandler(error, req, res) {
   res.status(500).send(error);
