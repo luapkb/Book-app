@@ -37,3 +37,7 @@ function searchForBooks(req, res){
   res.status(200).send('searched');
 }
 
+app.post('/contact', (request, response) => {
+  console.log(request.body);
+  response.render('pages/index.ejs');
+});
