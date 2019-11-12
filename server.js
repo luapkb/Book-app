@@ -33,10 +33,6 @@ function openSearch(req, res){
   res.render('pages/index');
 }
 
-//USER FORM EVENT HANDLER/////////////////////////////////////////
-
-// userForm.addEventListener('submit', );
-
 function searchForBooks(req, res){
   console.log('req: '+req);
   console.log('req.body: '+req.body);
