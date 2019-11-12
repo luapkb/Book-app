@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // Dependencies
 const express = require('express');
@@ -13,7 +13,8 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
-app.use(express.static('./public'))
+app.use(express.static('./public'));
+app.set('view engine', 'ejs');
 const PORT = process.env.PORT || 3000;
 
 // Database Setup
@@ -26,14 +27,32 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 // Routes
 app.get('/', openSearch);
-
-app.get('/searches', searchForBooks);
+app.post('/searches', searchForBooks);
 
 function openSearch(req, res){
-  res.status(200).send('Hello');
+  res.render('pages/index');
+  // res.status(200).send('Hello');
 }
 
 function searchForBooks(req, res){
-  res.status(200).send('searched');
+  const booksSearched = req.body.search[0];
+  const typeOfSearch = req.body.search[1];
+  let url =  `https://www.googleapis.com/books/v1/volumes?q=`;
+
+  if (typeOfSearch === 'title') {
+    url += `+intitle:${booksSearched}`;
+  }
+  if (typeOfSearch === 'author'){
+    url += `inauthor:${booksSearched}`;
+  }
+  superagent.get(url)
+    .then(results => {
+      console.log('results retuned', results);
+    })
+    .catch(error => errorHandler(error, req, res));
 }
 
+
+function errorHandler(error, req, res) {
+  res.status(500).send(error);
+}
