@@ -12,6 +12,8 @@ require('dotenv').config();
 // Application Setup
 const app = express();
 app.use(cors());
+
+app.use(express.static('./public'))
 const PORT = process.env.PORT || 3000;
 
 // Database Setup
@@ -24,6 +26,7 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 // Routes
 app.get('/', openSearch);
+
 app.get('/searches', searchForBooks);
 
 function openSearch(req, res){
@@ -33,3 +36,4 @@ function openSearch(req, res){
 function searchForBooks(req, res){
   res.status(200).send('searched');
 }
+
