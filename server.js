@@ -31,10 +31,10 @@ app.post('/searches', searchForBooks);
 
 function openSearch(req, res){
   res.render('pages/index');
-  // res.status(200).send('Hello');
 }
 
 function searchForBooks(req, res){
+  console.log(req.body);
   const booksSearched = req.body.search[0];
   const typeOfSearch = req.body.search[1];
   let url =  `https://www.googleapis.com/books/v1/volumes?q=`;
@@ -52,6 +52,10 @@ function searchForBooks(req, res){
     .catch(error => errorHandler(error, req, res));
 }
 
+app.post('/contact', (request, response) => {
+  console.log(request.body);
+  response.render('pages/index.ejs');
+});
 
 function errorHandler(error, req, res) {
   res.status(500).send(error);
