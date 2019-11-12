@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/luapkb/lab-11ejs/issues"
   },
-  "homepage": "https://github.com/luapkb/lab-11ejs#readme"
+  "homepage": "https://github.com/luapkb/lab-11ejs#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "superagent": "^5.1.0"
+  }
 }

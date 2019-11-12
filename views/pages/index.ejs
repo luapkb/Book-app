@@ -8,7 +8,24 @@
 </head>
 <body>
   <h1>Open a Book Open your mind</h1>
-  <form action="/searches" method="post"></form>
-    <input type="text">
+  <form action="/searches" method="post">
+    <input type="text" name="search" value="title">
+
+    <fieldset>
+      <label for="title">
+        <span>title;</span>
+        <input type="radio" name="search" valu="title">
+      </label>
+    </fieldset>
+
+    <fieldset>
+        <label for="author">
+          <span>Author:</span>
+          <input type="radio" name="search" valu="author">
+        </label>
+    </fieldset>  
+
+<button type="submit">Open a new book</button>    
+  </form>
 </body>
 </html>
