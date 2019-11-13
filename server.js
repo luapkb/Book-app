@@ -13,6 +13,7 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
+app.use(express.urlencoded({extended:true}));
 app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 const PORT = process.env.PORT || 3000;
@@ -28,14 +29,29 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 // Routes
 app.get('/', openSearch);
 app.post('/searches', searchForBooks);
+app.use('*', notFound);
+app.use(errorHandler);
 
+///////////////////////////////////////////////////////////////////////
+//HomePage
 function openSearch(req, res){
   res.render('pages/index');
 }
+///////////////////////////////////////////////////////////////////////
+//Not Found
+function notFound(req, res) {
+  res.status(404).send('Not Found');
+}
+///////////////////////////////////////////////////////////////////////
+//Error Handler
+function errorHandler(error, req, res) {
+  res.status(500).render('pages/error');
+}
+
+
+//USER FORM EVENT HANDLER/////////////////////////////////////////
 
 function searchForBooks(req, res){
-  console.log('req: '+req);
-  console.log('req.body: '+req.body);
   const booksSearched = req.body.search[0];
   const typeOfSearch = req.body.search[1];
   let url =  `https://www.googleapis.com/books/v1/volumes?q=`;
@@ -48,9 +64,12 @@ function searchForBooks(req, res){
   }
   superagent.get(url)
     .then(results => {
-      console.log('results retuned', results);
-    })
-    .catch(error => errorHandler(error, req, res));
+      let resArr = results.body.items.map(value => {
+        return new Book(value)
+      })
+      // res.status(200).send(resArr); functional--
+      res.status(200).render('pages/searches/show', { results: resArr });
+    }).catch(error => errorHandler(error, req, res));
 }
 
 app.post('/contact', (request, response) => {
@@ -61,15 +80,13 @@ app.post('/contact', (request, response) => {
 //////////////////////////////////////////////////////////////////////
 //Book Constructor
 function Book(data){
-  const bookImg = 'http://placeholder.it/300x300';
-  this.title = data.volumeInfo.title || 'No book available';
-  this.author = data.volumeInfo.authors || 'No Author Listed';
-  this.publisher = data.publisher || 'No book available';
-  this.publishedDate = data.publishedDate || 'No book available';
-  this.description = data.description || 'No book available';
-  this.etag = data.etag;
+  this.bookImg = 'http://placeholder.it/150x300';
+  this.title = data.volumeInfo.title;
+  this.author = data.volumeInfo.authors;
+  this.description = data.volumeInfo.description;
+  // this.ISBN_10 = data.volumeInfo.industryIdentifiers[0].identifier;
+  // this.etag = data.etag;
+  // this.publisher = data.volumeInfo.publisher;
+  // this.publishedDate = data.volumeInfo.publishedDate;
 }
 
-function errorHandler(error, req, res) {
-  res.status(500).send(error);
-}
