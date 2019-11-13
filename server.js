@@ -32,13 +32,14 @@ app.post('/searches', searchForBooks);
 app.use('*', notFound);
 app.use(errorHandler);
 
+// total: results.rows.pop()
 ///////////////////////////////////////////////////////////////////////
 //HomePage
 function openSearch(req, res){
   let SQL = `SELECT * FROM books;`;
   client.query(SQL).then(results => {
     console.log(results.rows);
-    res.render('pages/index', { results:  results.rows});
+    res.render('pages/index', { bookInst:  results.rows});
   })
 }
 ///////////////////////////////////////////////////////////////////////

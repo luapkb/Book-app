@@ -35,7 +35,8 @@
       </fieldset>  
       <button type="submit">Search the Google Books API</button>    
     </form>
-    <% results.forEach(book => { %>
+    <div>Total Books: <%= bookInst.length %></div>
+    <% bookInst.forEach(book => { %>
       <div>
         <ul>
           <li>Author: <%= book.author %></li>
@@ -46,6 +47,7 @@
         </ul>
       </div>
     <% }) %>
+
   </main>
   <footer>
       <input type="radio"><input type="radio"><input type="radio"><input type="radio">
