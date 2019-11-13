@@ -35,7 +35,11 @@ app.use(errorHandler);
 ///////////////////////////////////////////////////////////////////////
 //HomePage
 function openSearch(req, res){
-  res.render('pages/index');
+  let SQL = `SELECT * FROM books;`;
+  client.query(SQL).then(results => {
+    console.log(results.rows);
+    res.render('pages/index', { results:  results.rows});
+  })
 }
 ///////////////////////////////////////////////////////////////////////
 //Not Found
