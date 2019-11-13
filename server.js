@@ -48,6 +48,7 @@ function errorHandler(error, req, res) {
   res.status(500).render('pages/error');
 }
 
+
 //USER FORM EVENT HANDLER/////////////////////////////////////////
 
 function searchForBooks(req, res){
