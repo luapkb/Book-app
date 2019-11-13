@@ -28,7 +28,8 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 // Routes
 app.get('/', homePage);
-app.get('/search', openSearch)
+app.get('/search', openSearch);
+app.get('/books/:id', singleBook);
 app.post('/searches', searchForBooks);
 app.use('*', notFound);
 app.use(errorHandler);
@@ -60,7 +61,15 @@ function errorHandler(error, req, res) {
   res.status(500).render('pages/error');
 }
 
-
+function singleBook(req, res){
+  let SQL = `SELECT * FROM books WHERE id=$1;`;
+  let data = [req.params.id];
+  client.query(SQL, data).then(data => {
+    // console.log('this is the data: '+data.rows[0])
+    res.status(200).render('pages/books/show', { results: data.rows})
+    // res.status(200).send(data.rows)
+  })
+}
 //USER FORM EVENT HANDLER/////////////////////////////////////////
 
 function searchForBooks(req, res){
