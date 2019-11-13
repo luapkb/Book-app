@@ -83,4 +83,8 @@ div p, div h5{
 }
 div p{
     font-size: 0.8em;
+    margin: 1vw;
+}
+div img{
+    margin: 2vw;
 }
