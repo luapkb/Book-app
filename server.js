@@ -27,15 +27,27 @@ client.on('error', err => console.error(err));
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 // Routes
-app.get('/', openSearch);
+app.get('/', homePage);
+app.get('/search', openSearch);
+app.get('/books/:id', singleBook);
 app.post('/searches', searchForBooks);
 app.use('*', notFound);
 app.use(errorHandler);
 
+// total: results.rows.pop()
 ///////////////////////////////////////////////////////////////////////
 //HomePage
+function homePage(req, res){
+  let SQL = `SELECT * FROM books;`;
+  client.query(SQL).then(results => {
+    console.log(results.rows);
+    res.render('pages/index', { bookInst:  results.rows});
+  })
+}
+///////////////////////////////////////////////////////////////////////
+//Open the search page
 function openSearch(req, res){
-  res.render('pages/index');
+  res.render('pages/searches/new');
 }
 ///////////////////////////////////////////////////////////////////////
 //Not Found
@@ -45,10 +57,19 @@ function notFound(req, res) {
 ///////////////////////////////////////////////////////////////////////
 //Error Handler
 function errorHandler(error, req, res) {
+  console.error(error);
   res.status(500).render('pages/error');
 }
 
-
+function singleBook(req, res){
+  let SQL = `SELECT * FROM books WHERE id=$1;`;
+  let data = [req.params.id];
+  client.query(SQL, data).then(data => {
+    // console.log('this is the data: '+data.rows[0])
+    res.status(200).render('pages/books/show', { results: data.rows})
+    // res.status(200).send(data.rows)
+  })
+}
 //USER FORM EVENT HANDLER/////////////////////////////////////////
 
 function searchForBooks(req, res){
@@ -64,10 +85,11 @@ function searchForBooks(req, res){
   }
   superagent.get(url)
     .then(results => {
+      console.log(results.body);
       let resArr = results.body.items.map(value => {
         return new Book(value)
       })
-      // res.status(200).send(resArr); functional--
+      // res.status(200).send(resArr); --functional
       res.status(200).render('pages/searches/show', { results: resArr });
     }).catch(error => errorHandler(error, req, res));
 }
@@ -84,6 +106,6 @@ function Book(data){
   this.title = data.volumeInfo.title;
   this.author = data.volumeInfo.authors;
   this.description = data.volumeInfo.description;
-  this.ISBN = data.industryIdentifiers[0].identifiers;
+  this.ISBN = data.volumeInfo.industryIdentifiers[0].identifier;
 }
 
