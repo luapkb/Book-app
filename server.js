@@ -84,6 +84,6 @@ function Book(data){
   this.title = data.volumeInfo.title;
   this.author = data.volumeInfo.authors;
   this.description = data.volumeInfo.description;
- 
+  this.ISBN = data.industryIdentifiers[0].identifiers;
 }
 
