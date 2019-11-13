@@ -48,6 +48,7 @@ function errorHandler(error, req, res) {
   res.status(500).render('pages/error');
 }
 
+
 //USER FORM EVENT HANDLER/////////////////////////////////////////
 
 function searchForBooks(req, res){
@@ -79,14 +80,10 @@ app.post('/contact', (request, response) => {
 //////////////////////////////////////////////////////////////////////
 //Book Constructor
 function Book(data){
-  this.id = 
-  this.bookImg = 'http://placeholder.it/150x300';
+  this.bookImg = data.imageLinks.smallThumbnail;
   this.title = data.volumeInfo.title;
   this.author = data.volumeInfo.authors;
   this.description = data.volumeInfo.description;
-  // this.ISBN_10 = data.volumeInfo.industryIdentifiers[0].identifier;
-  // this.etag = data.etag;
-  // this.publisher = data.volumeInfo.publisher;
-  // this.publishedDate = data.volumeInfo.publishedDate;
+ 
 }
 
