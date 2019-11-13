@@ -80,10 +80,10 @@ app.post('/contact', (request, response) => {
 //////////////////////////////////////////////////////////////////////
 //Book Constructor
 function Book(data){
-  this.bookImg = data.imageLinks.smallThumbnail;
+  this.bookImg = `https://books.google.com/books/content?id=${data.id}&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api`
   this.title = data.volumeInfo.title;
   this.author = data.volumeInfo.authors;
   this.description = data.volumeInfo.description;
- 
+  this.ISBN = data.industryIdentifiers[0].identifiers;
 }
 
