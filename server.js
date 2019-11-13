@@ -79,6 +79,7 @@ app.post('/contact', (request, response) => {
 //////////////////////////////////////////////////////////////////////
 //Book Constructor
 function Book(data){
+  this.id = 
   this.bookImg = 'http://placeholder.it/150x300';
   this.title = data.volumeInfo.title;
   this.author = data.volumeInfo.authors;
