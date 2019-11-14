@@ -13,22 +13,26 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
-app.use(express.urlencoded({extended:true,}));
+//allows us to look inside request.body (usually we can not it returns undefined)
+app.use(express.urlencoded({extended:true}));
 app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 const PORT = process.env.PORT || 3000;
 
 // Database Setup
 const client = new pg.Client(process.env.DATABASE_URL);
-client.connect();
+client.connect().then(() => {
+// Make sure the server is listening for requests
+  app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+})
 client.on('error', err => console.error(err));
 
-// Make sure the server is listening for requests
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
 
 // Routes
 app.get('/', homePage);
 app.get('/search', openSearch);
+// app.post('/books', createBook);
 app.get('/books/:id', singleBook);
 app.post('/searches', searchForBooks);
 app.use('*', notFound);
@@ -65,9 +69,8 @@ function singleBook(req, res){
   let SQL = `SELECT * FROM books WHERE id=$1;`;
   let data = [req.params.id];
   client.query(SQL, data).then(data => {
-    // console.log('this is the data: '+data.rows[0])
-    res.status(200).render('pages/books/show', { results: data.rows});
-    // res.status(200).send(data.rows)
+    res.status(200).render('pages/books/show', { results: data.rows[0]});
+    // res.status(200).send(data.rows[0])
   });
 }
 //USER FORM EVENT HANDLER/////////////////////////////////////////
