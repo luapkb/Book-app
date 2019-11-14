@@ -6,13 +6,30 @@
 <body>
   <header>
     <%- include("../layout/header.ejs")%>
+
   </header>
   <section>
     <p>Search by Title or Author</p>
   </section>
   <main>
     <div>Total Books: <%= bookInst.length %></div>
+<<<<<<< HEAD
       <%- include('books/detail.ejs')%>
+=======
+    <% bookInst.forEach(book => { %>
+      <div>
+        <ul>
+          <li>Author: <%= book.author %></li>
+          <li>Title: <%= book.title %></li>
+          <li>Description: <%= book.description %></li>
+          <li>ISBN: <%= book.isbn %></li>
+          <li>Bookshelf: <%= book.bookshelf %></li>
+        </ul>
+        <button> click for details of this book</button>
+      </div>
+    <% }) %>
+
+>>>>>>> b233aca83f88e685abbf9ded5b502ca308bb28fc
   </main>
   <footer>
       <input type="radio"><input type="radio"><input type="radio"><input type="radio">
