@@ -12,8 +12,21 @@
   <header>
     <p>Best Books!<p>
     <nav>
-      <img src="http://placeholder.it/30x30">
-    </nav>
+        <a href="/searches/show"></a><button class="accordion">return to library</button>
+<div class="panel">
+  <p></p>
+</div>
+
+<a href="/searches/new"></a><button class="accordion">search a new book</button>
+<div class="panel">
+  <p></p>
+</div>
+
+<button class="accordion">your next option</button>
+<div class="panel">
+  <p></p>
+
+</nav>
   </header>
   <section>
     <p>Search by Title or Author</p>
@@ -29,6 +42,7 @@
           <li>ISBN: <%= book.isbn %></li>
           <li>Bookshelf: <%= book.bookshelf %></li>
         </ul>
+        <button> click for details of this book</button>
       </div>
     <% }) %>
 
