@@ -6,6 +6,7 @@
 <body>
   <header>
     <%- include("../layout/header.ejs")%>
+
   </header>
   <section>
     <p>Search by Title or Author</p>
@@ -21,6 +22,7 @@
           <li>ISBN: <%= book.isbn %></li>
           <li>Bookshelf: <%= book.bookshelf %></li>
         </ul>
+        <button> click for details of this book</button>
       </div>
     <% }) %>
 
