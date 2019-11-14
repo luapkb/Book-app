@@ -1,32 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Best Books</title>
-  <link rel="stylesheet" href="/styles/base.css">
-  <link rel="stylesheet" href="/styles/layout.css">
-  <link rel="stylesheet" href="/styles/modules.css">
+  <%- include("../layout/head.ejs")%>
 </head>
 <body>
   <header>
-    <p>Best Books!<p>
-    <nav>
-        <a href="/searches/show"></a><button class="accordion">return to library</button>
-<div class="panel">
-  <p></p>
-</div>
+    <%- include("../layout/header.ejs")%>
 
-<a href="/searches/new"></a><button class="accordion">search a new book</button>
-<div class="panel">
-  <p></p>
-</div>
-
-<button class="accordion">your next option</button>
-<div class="panel">
-  <p></p>
-
-</nav>
   </header>
   <section>
     <p>Search by Title or Author</p>
