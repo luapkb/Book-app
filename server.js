@@ -88,7 +88,6 @@ function searchForBooks(req, res){
   }
   superagent.get(url)
     .then(results => {
-      console.log(results.body);
       let resArr = results.body.items.map(value => {
         return new Book(value)
       })

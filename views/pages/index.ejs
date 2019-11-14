@@ -12,18 +12,7 @@
   </section>
   <main>
     <div>Total Books: <%= bookInst.length %></div>
-    <% bookInst.forEach(book => { %>
-      <div>
-        <ul>
-          <li>Author: <%= book.author %></li>
-          <li>Title: <%= book.title %></li>
-          <li>Description: <%= book.description %></li>
-          <li>ISBN: <%= book.isbn %></li>
-          <li>Bookshelf: <%= book.bookshelf %></li>
-        </ul>
-      </div>
-    <% }) %>
-
+      <%- include('books/detail.ejs')%>
   </main>
   <footer>
       <input type="radio"><input type="radio"><input type="radio"><input type="radio">
