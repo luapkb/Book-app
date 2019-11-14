@@ -13,7 +13,7 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({extended:true,}));
 app.use(express.static('./public'));
 app.set('view engine', 'ejs');
 const PORT = process.env.PORT || 3000;
@@ -65,10 +65,10 @@ function searchForBooks(req, res){
   superagent.get(url)
     .then(results => {
       let resArr = results.body.items.map(value => {
-        return new Book(value)
-      })
+        return new Book(value);
+      });
       // res.status(200).send(resArr); functional--
-      res.status(200).render('pages/searches/show', { results: resArr });
+      res.status(200).render('pages/searches/show', { results: resArr, });
     }).catch(error => errorHandler(error, req, res));
 }
 
@@ -80,7 +80,7 @@ app.post('/contact', (request, response) => {
 //////////////////////////////////////////////////////////////////////
 //Book Constructor
 function Book(data){
-  this.bookImg = `https://books.google.com/books/content?id=${data.id}&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api`
+  this.bookImg = `https://books.google.com/books/content?id=${data.id}&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api`;
   this.title = data.volumeInfo.title;
   this.author = data.volumeInfo.authors;
   this.description = data.volumeInfo.description;
