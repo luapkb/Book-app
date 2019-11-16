@@ -6,11 +6,14 @@
 <body>
   <header>
     <%- include("../layout/header.ejs")%>
-
+    <section>
+      <div id="nav-buttons" style="display: none;">
+        <button class="nav-button" onclick="window.location.href = '/'">HOME</button>
+        <button class="nav-button" onclick="window.location.href = '/search'">NEW SEARCH</button>  
+      </div>
+      <p><%= bookInst.length %> - Saved Books</p>
+    </section>
   </header>
-  <section>
-    <p><%= bookInst.length %> - Saved Books</p>
-  </section>
   <main>
     <%- include('books/detail.ejs')%>
   </main>

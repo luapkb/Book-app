@@ -1,5 +1,5 @@
 <% bookInst.forEach((book, idx) => { %>
-        <div>
+        <div class="book-div">
                 <section style="display: none; position: absolute;" id="form<%= idx %>" class="form">
                         <form action="/add" method="post">
                                 <input type="text" name="select" placeholder="Title" value="<%= book.title %>">
