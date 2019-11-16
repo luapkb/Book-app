@@ -1,10 +1,11 @@
-<% bookInst.forEach(book => { %>
-        <div>
-                <img src=<%= book.bookImg %>>
-                <h5><%= book.title %></h5>
-                <p><%= book.author %></p>
-                <p><%= book.description %></p>
-                <p><%= book.ISBN %></p>
-                <p><%= book.bookshelf %></p>
-        </div>
+<% bookInst.forEach((book, idx) => { %>
+    <div>
+            <img src=<%= book.image_url %>>
+            <h5><%= book.title %></h5>
+            <p><%= book.author %></p>
+            <p><%= book.description %></p>
+            <p>ISBN: <%= book.ISBN %></p>
+            <p><%= book.bookshelf %></p>
+            <button type="button" class='view-details-button'><a href=/books/<%= idx+1 %>>View Details</a></button>
+    </div>
 <% }) %>

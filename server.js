@@ -32,7 +32,7 @@ client.on('error', err => console.error(err));
 // Routes
 app.get('/', homePage);
 app.get('/search', openSearch);
-// app.post('/books', createBook);
+app.post('/add', addBook);
 app.get('/books/:id', singleBook);
 app.post('/searches', searchForBooks);
 app.use('*', notFound);
@@ -44,7 +44,6 @@ app.use(errorHandler);
 function homePage(req, res){
   let SQL = `SELECT * FROM books;`;
   client.query(SQL).then(results => {
-    console.log(results.rows);
     res.render('pages/index', { bookInst:  results.rows});
   });
 }
@@ -52,6 +51,20 @@ function homePage(req, res){
 //Open the search page
 function openSearch(req, res){
   res.render('pages/searches/new');
+}
+///////////////////////////////////////////////////////////////////////
+//Add a book to db
+function addBook(req, res) {
+  let SQL = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
+  let values = [req.body.select[1], req.body.select[0], req.body.select[2], req.body.select[3], req.body.select[4], req.body.select[5]];
+
+  client.query(SQL, values).catch(error => errorHandler(error, req, res));
+
+  let sql = 'SELECT * FROM books WHERE isbn=$1;';
+  let id = [req.body.select[2]];
+  client.query(sql,id).then(result => {
+    res.status(200).redirect(`/books/${result.rows[0].id}`);
+  }).catch(error => errorHandler(error, req, res));
 }
 ///////////////////////////////////////////////////////////////////////
 //Not Found
@@ -64,14 +77,14 @@ function errorHandler(error, req, res) {
   console.error(error);
   res.status(500).render('pages/error');
 }
-
+///////////////////////////////////////////////////////////////////////
+//Single book detail page
 function singleBook(req, res){
   let SQL = `SELECT * FROM books WHERE id=$1;`;
   let data = [req.params.id];
   client.query(SQL, data).then(data => {
-    res.status(200).render('pages/books/show', { results: data.rows[0]});
-    // res.status(200).send(data.rows[0])
-  });
+    res.status(200).render('pages/books/show', { bookInst: data.rows});
+  }).catch(error => errorHandler(error, req, res));
 }
 //USER FORM EVENT HANDLER/////////////////////////////////////////
 
@@ -92,7 +105,7 @@ function searchForBooks(req, res){
         return new Book(value);
       });
       // res.status(200).send(resArr); functional--
-      res.status(200).render('pages/searches/show', { results: resArr, });
+      res.status(200).render('pages/searches/show', { bookInst: resArr, });
     }).catch(error => errorHandler(error, req, res));
 }
 
