@@ -6,10 +6,14 @@
 <body>
   <header>
     <%- include("../../layout/header.ejs")%>
+    <section>
+      <div id="nav-buttons" style="display: none;">
+        <button class="nav-button" onclick="window.location.href = '/'">HOME</button>
+        <button class="nav-button" onclick="window.location.href = '/search'">NEW SEARCH</button>  
+      </div>
+      <p>Search by Title or Author</p>
+    </section>
   </header>
-  <section>
-    <p>Search by Title or Author</p>
-  </section>
   <main>
     <form action="/searches" method="post">
       <input type="text" name="search" placeholder="Enter a title or author">
