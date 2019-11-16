@@ -33,8 +33,8 @@ header section h1, header section p{
 }
 #nav{
     background-color: orange;
-    width: 1vw;
-    height: 1vw;
+    width: 5vw;
+    height: 2vw;
 }
 #nav-buttons{
     margin: 0vw;
