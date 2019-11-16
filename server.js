@@ -55,7 +55,6 @@ function openSearch(req, res){
 ///////////////////////////////////////////////////////////////////////
 //Add a book to db
 function addBook(req, res) {
-  console.log('wreckbody: '+req.body.select);
   let SQL = 'INSERT INTO books(author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);';
   let values = [req.body.select[1], req.body.select[0], req.body.select[2], req.body.select[3], req.body.select[4], req.body.select[5]];
 
@@ -63,7 +62,6 @@ function addBook(req, res) {
 
   let sql = 'SELECT * FROM books WHERE isbn=$1;';
   let id = [req.body.select[2]];
-  console.log('req.body.isbn: '+id)
   client.query(sql,id).then(result => {
     res.status(200).redirect(`/books/${result.rows[0].id}`);
   }).catch(error => errorHandler(error, req, res));

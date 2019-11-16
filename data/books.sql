@@ -10,5 +10,5 @@ CREATE TABLE books (
     bookshelf VARCHAR(255)
 );
 
-INSERT INTO books (author, title, isbn, image_url, description, bookshelf)
-VALUES('sample author', 'sample author', 123456789 , 'https://sample.url', 'sample description goes here', 'sample bookshelf');
+-- INSERT INTO books (author, title, isbn, image_url, description, bookshelf)
+-- VALUES('sample author', 'sample author', 123456789 , 'https://sample.url', 'sample description goes here', 'sample bookshelf');
