@@ -20,6 +20,8 @@
 01-01-2001 4:59pm - Application now has a fully-functional express server, with GET and POST routes for the book resource.
 
 ## Credits and Collaborations
+//////////////////////////////////////Hamburger Menu PNG///////////////////////////////////////////////////
+https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwi56ty9lu7lAhWdHTQIHWScD4QQjRx6BAgBEAQ&url=https%3A%2F%2Fwww.abeautifulsite.net%2Fdata-uris-for-navicon-hamburger-menu-icons&psig=AOvVaw2nivRKFwaGDZW5fw7O15op&ust=1573974128673540
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 -->
 
